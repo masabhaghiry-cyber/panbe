@@ -1,0 +1,344 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#FFF3E4">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<title>سفرِ پنبه</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lalezar&family=Vazirmatn:wght@400;600;800&display=swap">
+<style>
+:root{
+  color-scheme:light;
+  --sky:#FFF3E4; --paper:#FFFFFF; --ink:#3B2A4F; --soft:#7A6A8C;
+  --pink:#FF8FB1; --pink-2:#FFE0EA; --sun:#FFC93C; --sun-2:#FFF1C7;
+  --mint:#5CCFB0; --mint-2:#D9F6EE; --line:#F0DCCB; --shadow:0 6px 0 #F0DCCB; --chip:#FFFFFF;
+  --carrot:#FF8A3D;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    color-scheme:dark;
+    --sky:#1E1830; --paper:#2A2240; --ink:#FBEFFF; --soft:#C3B4D6;
+    --pink-2:#4A2B45; --sun-2:#4A3D22; --mint-2:#1F4039; --line:#3D3258; --shadow:0 6px 0 #15101F; --chip:#332A4D;
+  }
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{
+  background:var(--sky);color:var(--ink);
+  font-family:"Vazirmatn",Tahoma,system-ui,sans-serif;font-size:17px;line-height:1.85;
+  padding-inline:16px;padding-block:calc(env(safe-area-inset-top,0px) + 16px) calc(env(safe-area-inset-bottom,0px) + 40px);
+  min-height:100vh;
+}
+.app{max-width:520px;margin-inline:auto;display:flex;flex-direction:column;gap:16px}
+h1,h2,h3{font-family:"Lalezar","Vazirmatn",Tahoma,sans-serif;font-weight:400;margin:0;line-height:1.35;text-wrap:balance}
+h1{font-size:40px;color:var(--pink)} h2{font-size:28px} h3{font-size:22px}
+p{margin:0}
+.muted{color:var(--soft);font-size:14px}
+.card{background:var(--paper);border:3px solid var(--line);border-radius:26px;box-shadow:var(--shadow);padding:20px;display:flex;flex-direction:column;gap:14px}
+.top{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.pill{font-weight:800;font-size:15px;padding:4px 14px;border-radius:99px;background:var(--sun-2);border:2px solid var(--sun);font-variant-numeric:tabular-nums}
+.iconbtn{font:inherit;font-size:14px;font-weight:800;background:var(--paper);color:var(--ink);border:2px solid var(--line);border-radius:99px;padding:6px 14px;cursor:pointer}
+/* قهرمان */
+.hero{display:grid;grid-template-columns:110px 1fr;gap:12px;align-items:center}
+.hero svg{width:110px;height:auto}
+.bun.wiggle{animation:wig .6s ease 3}
+@keyframes wig{25%{transform:rotate(-6deg)}75%{transform:rotate(6deg)}}
+.bubble{background:var(--sun-2);border-radius:20px;padding:12px 16px;font-weight:600;position:relative}
+.bubble::before{content:"";position:absolute;top:22px;inset-inline-start:-12px;border:10px solid transparent;border-inline-end-color:var(--sun-2);border-inline-start:0}
+/* مسیر */
+.path{display:flex;align-items:center;gap:4px;direction:rtl}
+.path i{flex:1;height:10px;border-radius:9px;background:var(--line);transition:background .4s}
+.path i.on{background:var(--carrot)}
+.path b{font-size:22px}
+/* کارها */
+.part{display:flex;flex-direction:column;gap:10px}
+.part h3{display:flex;gap:8px;align-items:center}
+.task{
+  font:inherit;color:var(--ink);text-align:start;width:100%;cursor:pointer;
+  display:grid;grid-template-columns:52px 1fr 40px;align-items:center;gap:12px;
+  background:var(--chip);border:3px solid var(--line);border-radius:22px;padding:10px 12px;transition:transform .15s,background .2s,border-color .2s;
+}
+.task .e{font-size:34px;text-align:center}
+.task .t{font-weight:800;font-size:18px;line-height:1.5}
+.task .h{display:block;font-weight:400;font-size:13px;color:var(--soft)}
+.task .c{width:38px;height:38px;border-radius:50%;border:3px solid var(--line);display:grid;place-items:center;font-size:22px;color:#fff}
+.task[aria-pressed="true"]{background:var(--mint-2);border-color:var(--mint)}
+.task[aria-pressed="true"] .c{background:var(--mint);border-color:var(--mint)}
+.task[aria-pressed="true"] .t{text-decoration:line-through;text-decoration-thickness:2px;opacity:.75}
+.task.late{border-color:var(--carrot);animation:nudge 1.4s ease-in-out infinite}
+@keyframes nudge{50%{transform:translateX(-4px)}}
+.task:active{transform:scale(.97)}
+/* دکمه */
+.btn{font:inherit;font-weight:800;font-size:18px;border:0;border-radius:99px;padding:14px 22px;cursor:pointer;background:var(--pink);color:#3B1530;box-shadow:0 5px 0 #D8668C;transition:transform .1s,box-shadow .1s}
+.btn:active{transform:translateY(4px);box-shadow:0 1px 0 #D8668C}
+.btn.mint{background:var(--mint);color:#0F3B30;box-shadow:0 5px 0 #3BA88A}
+.btn.ghost{background:var(--paper);color:var(--ink);border:3px solid var(--line);box-shadow:none}
+.btn[disabled]{background:var(--line);color:var(--soft);box-shadow:none;cursor:not-allowed}
+.row{display:flex;gap:10px;flex-wrap:wrap}.row>*{flex:1}
+button:focus-visible,input:focus-visible,select:focus-visible{outline:4px solid var(--sun);outline-offset:3px}
+/* قصه */
+.story{font-size:19px;line-height:2.1}
+.story p+p{margin-top:10px}
+.chap{font-size:13px;font-weight:800;color:var(--carrot);letter-spacing:.02em}
+/* فرم مامان */
+label{font-weight:800}
+input,select{font:inherit;color:var(--ink);background:var(--sky);border:3px solid var(--line);border-radius:16px;padding:10px 14px;width:100%}
+.edit{display:grid;grid-template-columns:64px 1fr;gap:8px;padding:12px;border:2px dashed var(--line);border-radius:18px}
+.edit .wide{grid-column:1/-1}
+.edit .icon{text-align:center;font-size:24px;padding-inline:4px}
+.mini{font:inherit;font-size:14px;font-weight:800;border-radius:12px;padding:8px 12px;border:2px solid var(--line);background:var(--paper);color:var(--ink);cursor:pointer}
+.mini.danger{color:#C2334D;border-color:#F3B6C3}
+.week{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;text-align:center;font-size:12px}
+.week div{border-radius:12px;padding:6px 2px;background:var(--sky);font-variant-numeric:tabular-nums}
+.week b{display:block;font-size:16px}
+.note{background:var(--mint-2);border-radius:16px;padding:12px 14px;font-size:14px;line-height:1.8}
+.banner{background:var(--carrot);color:#2B1200;border-radius:20px;padding:12px 16px;font-weight:800;display:flex;gap:10px;align-items:center}
+.pin{display:flex;gap:10px;justify-content:center;direction:ltr}
+.pin input{width:56px;text-align:center;font-size:26px;padding:8px 0}
+#fx{position:fixed;inset:0;pointer-events:none;z-index:9}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<canvas id="fx"></canvas>
+<main class="app" id="app"></main>
+
+<script>
+/* ---------- قصه: ۱۴ فصل، هر روزی که همهٔ کارها تمام شود یک فصل باز می‌شود ---------- */
+const STORY=[
+ ["پنبه راه می‌افتد","پنبه یه خرگوشِ سفید و کوچولو بود که توی یه لونهٔ گرم زیرِ درختِ گردو زندگی می‌کرد.","یه شب، یه ستارهٔ ریز از آسمون افتاد و پشتِ کوهِ بلند گم شد. ستاره گریه می‌کرد: «کی منو برمی‌گردونه خونه؟»","پنبه کوله‌پشتیش رو برداشت و گفت: «من! ولی برای این سفر کلی انرژی لازم دارم.» و {name} قول داد که با کارهای خوبش به پنبه هویج برسونه."],
+ ["پلِ چوبی","فردا صبح، پنبه به یه رودخونه رسید. پلِ چوبی لق بود و تخته‌هاش ریخته بود.","پنبه یادش اومد {name} دیروز اسباب‌بازی‌هاش رو مرتب جمع کرده بود. گفت: «منم تخته‌ها رو مرتب می‌چینم!»","تخته‌ها رو یکی‌یکی سرِ جاشون گذاشت و از پل رد شد. ماهی‌ها از توی آب براش دست زدن."],
+ ["جغدِ خواب‌آلود","توی جنگل یه جغدِ پیر نشسته بود که چشم‌هاش باز نمی‌شد. «من شب‌ها دیر می‌خوابم، برای همین صبح‌ها نمی‌تونم پرواز کنم.»","پنبه گفت: «دوستِ من {name} هر شب سرِ وقت می‌خوابه، صبح مثلِ گل سرحاله!»","جغد اون شب زود خوابید. صبح که شد، پرواز کرد و راهِ کوه رو از بالا به پنبه نشون داد."],
+ ["دندون‌های براق","پنبه به یه سنجابِ غمگین رسید. «دندونم درد می‌کنه، دیگه نمی‌تونم فندق بشکنم.»","پنبه از توی کوله‌ش یه مسواکِ کوچولو درآورد. «{name} صبح و شب مسواک می‌زنه، برای همین دندون‌هاش مثلِ مروارید می‌درخشه.»","سنجاب مسواک زد و قول داد هر شب تکرار کنه. به پنبه یه فندقِ طلایی هدیه داد."],
+ ["باغِ آشفته","پشتِ جنگل یه باغ بود که همه‌چیزش به‌هم‌ریخته بود: گلدون‌ها افتاده، برگ‌ها همه‌جا.","پنبه آستین‌هاش رو بالا زد. یکی‌یکی گلدون‌ها رو صاف کرد، درست مثلِ وقتی که {name} اتاقش رو مرتب می‌کنه.","باغ دوباره قشنگ شد و گل‌ها با هم آواز خوندن: «مرسی پنبه، مرسی {name}!»"],
+ ["کتابِ جادویی","وسطِ باغ یه کتابِ بزرگ بود که روش نوشته بود: «فقط کسی که بخونه، راه رو پیدا می‌کنه.»","پنبه صفحه‌ها رو ورق زد و یه نقشه پیدا کرد. با خودش گفت: «خوب شد {name} هر روز کتاب می‌خونه و به من هم یاد داده!»","روی نقشه یه علامتِ ستاره بود: درست بالای کوهِ بلند."],
+ ["تونلِ تاریک","راه از یه تونلِ تاریک می‌گذشت. پنبه کمی ترسید.","یادش اومد {name} هم وقتی کاری سخته، تنبلی نمی‌کنه و یواش‌یواش انجامش می‌ده. نفسِ عمیق کشید و قدم به قدم رفت جلو.","آخرِ تونل، کرم‌های شب‌تاب براش راه رو روشن کردن. «آفرین! تو شجاعی!»"],
+ ["صبحانهٔ قوی","پنبه خیلی خسته شده بود. پاهاش دیگه جون نداشت.","یه خرسِ مهربون براش صبحانه آورد: نون، پنیر، یه لیوان شیر و یه هویجِ بزرگ. «هیچ قهرمانی بدونِ صبحانه سفر نمی‌کنه!»","پنبه همه رو خورد، همون‌طور که {name} صبحانه‌ش رو کامل می‌خوره، و دوباره پر از انرژی شد."],
+ ["کمک به مورچه‌ها","مورچه‌ها داشتن یه دونهٔ گندمِ بزرگ رو به لونه می‌بردن، ولی خیلی سنگین بود.","پنبه با اینکه عجله داشت، ایستاد و کمکشون کرد. گفت: «{name} هم همیشه به مامانش کمک می‌کنه.»","مورچه‌ها یه راهِ میون‌بر به پنبه نشون دادن که سفرش رو یه روز کوتاه‌تر کرد."],
+ ["پای کوه","بالاخره پنبه به پای کوهِ بلند رسید. کوه اون‌قدر بلند بود که سرش توی ابرها بود.","«وای، چطوری برم بالا؟» یه بزِ کوهی گفت: «هر روز یه کم. مثلِ کارهای خوب: هر روز یه کم، تا کوه تموم بشه.»","پنبه اولین قدم رو برداشت."],
+ ["بادِ شیطون","وسطِ راه یه بادِ شیطون اومد و گفت: «بی‌خیال! بشین بازی کن، فردا برو!»","پنبه کمی وسوسه شد. بعد یادِ {name} افتاد که اول کارهاش رو می‌کنه، بعد با خیالِ راحت بازی می‌کنه.","«نه بادِ جون! اول کار، بعد بازی!» و باد که دید پنبه حرف‌گوش‌نکن نیست، خندید و رفت."],
+ ["نزدیکِ ابرها","هوا سرد شده بود. پنبه شالگردنش رو بست و ادامه داد.","از اون بالا همهٔ راه رو می‌دید: رودخونه، جنگل، باغ، تونل. با خودش گفت: «این همه راه اومدم، با کمکِ {name}!»","یه نورِ کوچولو از بالای کوه چشمک می‌زد."],
+ ["ستارهٔ گمشده","بالای کوه، ستارهٔ کوچولو لای سنگ‌ها گیر کرده بود و می‌لرزید.","پنبه آروم برش داشت و بغلش کرد. ستاره گفت: «تو اومدی! چطوری این همه راه رو اومدی؟»","پنبه لبخند زد: «یه دوستِ خوب دارم به اسمِ {name} که هر روز کارهاش رو انجام داد و به من انرژی داد.»"],
+ ["برگشت به آسمون","پنبه ستاره رو بالای بلندترین سنگ گذاشت. ستاره پرواز کرد و رفت سرِ جاش توی آسمون.","اون شب، ستاره از همه پرنورتر می‌درخشید. اگه {name} از پنجره نگاه کنه، می‌بینه که ستاره داره براش چشمک می‌زنه.","پنبه برگشت خونه و یه نامه نوشت: «{name} جون، تو قهرمانِ این قصه‌ای. فردا یه سفرِ تازه شروع می‌کنیم!»"]
+];
+
+/* ---------- داده ---------- */
+const KEY="panbe-v1";
+const DEF_TASKS=[
+ ["🪥","مسواکِ صبح","صبح","07:30"],["🛏️","جمع کردنِ رختخواب","صبح",""],["🥣","خوردنِ صبحانه","صبح","08:00"],
+ ["✏️","نوشتنِ مشق","عصر","16:30"],["🧸","جمع کردنِ اسباب‌بازی‌ها","عصر","19:00"],
+ ["📖","کتاب خوندن","شب","20:30"],["🪥","مسواکِ شب","شب","21:00"],["🌙","خوابیدن سرِ وقت","شب","21:30"]
+].map(([icon,title,part,time],i)=>({id:"t"+i,icon,title,part,time}));
+const blank=()=>({name:"",pin:"",tasks:DEF_TASKS,reward:{goal:30,title:"یه بستنیِ خوشمزه با مامان"},stars:0,spent:0,chapter:0,days:{}});
+let S; try{S=JSON.parse(localStorage.getItem(KEY)||"null")}catch(e){} if(!S) S=blank();
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}};
+
+const fa=n=>Number(n).toLocaleString("fa-IR");
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const dkey=(d=new Date())=>d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
+const day=()=>S.days[dkey()]||(S.days[dkey()]={done:[],story:null,nudged:[]});
+const nm=()=>S.name||"قهرمانِ کوچولو";
+const PARTS=[["صبح","☀️"],["عصر","🌤️"],["شب","🌙"]];
+const nowMin=()=>{const d=new Date();return d.getHours()*60+d.getMinutes()};
+const tMin=t=>{if(!t)return null;const[h,m]=t.split(":").map(Number);return h*60+m};
+const faTime=t=>t?fa(+t.split(":")[0])+":"+t.split(":")[1].replace(/\d/g,d=>"۰۱۲۳۴۵۶۷۸۹"[d]):"";
+
+const BUN=(mood)=>`<svg class="bun" viewBox="0 0 120 140" aria-hidden="true">
+ <ellipse cx="60" cy="132" rx="38" ry="6" fill="var(--line)"/>
+ <ellipse cx="42" cy="34" rx="11" ry="30" fill="#fff" stroke="#E7D6E8" stroke-width="3" transform="rotate(-10 42 34)"/>
+ <ellipse cx="42" cy="36" rx="5" ry="20" fill="var(--pink)" transform="rotate(-10 42 36)"/>
+ <ellipse cx="78" cy="34" rx="11" ry="30" fill="#fff" stroke="#E7D6E8" stroke-width="3" transform="rotate(10 78 34)"/>
+ <ellipse cx="78" cy="36" rx="5" ry="20" fill="var(--pink)" transform="rotate(10 78 36)"/>
+ <ellipse cx="60" cy="102" rx="34" ry="30" fill="#fff" stroke="#E7D6E8" stroke-width="3"/>
+ <circle cx="60" cy="72" r="30" fill="#fff" stroke="#E7D6E8" stroke-width="3"/>
+ ${mood==="happy"?`<path d="M46 70q5-6 10 0M64 70q5-6 10 0" stroke="#3B2A4F" stroke-width="3.5" fill="none" stroke-linecap="round"/>`
+ :`<circle cx="50" cy="70" r="4.5" fill="#3B2A4F"/><circle cx="70" cy="70" r="4.5" fill="#3B2A4F"/>`}
+ <circle cx="42" cy="80" r="5" fill="var(--pink)" opacity=".55"/><circle cx="78" cy="80" r="5" fill="var(--pink)" opacity=".55"/>
+ <path d="M56 80l4 3 4-3" fill="var(--pink)"/>
+ ${mood==="happy"?`<path d="M52 87q8 8 16 0" stroke="#3B2A4F" stroke-width="3" fill="none" stroke-linecap="round"/>`:`<path d="M55 89h10" stroke="#3B2A4F" stroke-width="3" stroke-linecap="round"/>`}
+ <path d="M84 100l14-18" stroke="var(--carrot)" stroke-width="9" stroke-linecap="round"/><path d="M96 82l6-8M98 84l8-3" stroke="var(--mint)" stroke-width="3" stroke-linecap="round"/>
+</svg>`;
+
+/* ---------- صفحه‌ها ---------- */
+const app=document.getElementById("app");
+let view=S.name&&S.pin?"home":"setup", momOk=false;
+
+function lateTasks(){const n=nowMin(),d=day();return S.tasks.filter(t=>t.time&&tMin(t.time)<=n&&!d.done.includes(t.id))}
+function talk(){
+  const d=day(),total=S.tasks.length,done=d.done.filter(id=>S.tasks.some(t=>t.id===id)).length,late=lateTasks();
+  if(total&&done===total) return d.story!==null?`ایول ${nm()}! قصهٔ امروز رو خوندیم. فردا یه فصلِ تازه!`:`وااای ${nm()}! همه رو انجام دادی! قصهٔ امروز باز شد 🎉`;
+  if(late.length) return `هی ${nm()}! وقتِ «${late[0].title}» شده. بیا با هم انجامش بدیم، تنبلی نه! 🥕`;
+  if(!done) return `سلام ${nm()}! من پنبه‌ام. هر کاری که بکنی به من یه هویج می‌رسه تا سفرم رو ادامه بدم.`;
+  return `آفرین! ${fa(done)} تا هویج گرفتم. فقط ${fa(total-done)} تای دیگه مونده تا قصهٔ امروز باز بشه!`;
+}
+
+function home(){
+  const d=day(),total=S.tasks.length,done=S.tasks.filter(t=>d.done.includes(t.id)).length,late=lateTasks().map(t=>t.id);
+  const all=total&&done===total, have=S.stars-S.spent;
+  app.innerHTML=`
+  <div class="top"><span class="pill" aria-label="ستاره‌ها">⭐ ${fa(have)}</span><button class="iconbtn" data-a="mom">پنلِ مامان 🔒</button></div>
+  <section class="card">
+    <div class="hero">${BUN(all?"happy":"")}<p class="bubble" id="talk">${esc(talk())}</p></div>
+    <div class="path" aria-label="${fa(done)} از ${fa(total)} کار">${S.tasks.map((t,i)=>`<i class="${i<done?"on":""}"></i>`).join("")}<b>⭐</b></div>
+    <button class="btn ${all?"mint":""}" data-a="story" ${all?"":"disabled"}>${all?"📖 قصهٔ امروز رو بخون":"📖 قصهٔ امروز قفله — اول کارها!"}</button>
+  </section>
+  ${PARTS.map(([p,e])=>{const ts=S.tasks.filter(t=>t.part===p); if(!ts.length) return "";
+    return `<section class="part"><h3>${e} ${p}</h3>${ts.map(t=>`
+    <button class="task ${late.includes(t.id)?"late":""}" data-t="${t.id}" aria-pressed="${d.done.includes(t.id)}">
+      <span class="e">${t.icon}</span><span class="t">${esc(t.title)}${t.time?`<span class="h">ساعتِ ${faTime(t.time)}</span>`:""}</span><span class="c">${d.done.includes(t.id)?"✓":""}</span>
+    </button>`).join("")}</section>`}).join("")}
+  <section class="card"><h3>🎁 جایزهٔ بزرگ</h3>
+    <p>با <b>${fa(S.reward.goal)}</b> ستاره: ${esc(S.reward.title)}</p>
+    <div class="path">${Array.from({length:10},(_,i)=>`<i class="${have>=S.reward.goal*(i+1)/10?"on":""}"></i>`).join("")}<b>🎁</b></div>
+    <p class="muted">${have>=S.reward.goal?"جایزه آماده‌ست! به مامان بگو 🎉":`${fa(S.reward.goal-have)} ستارهٔ دیگه مونده.`}</p>
+  </section>`;
+}
+
+function story(){
+  const d=day(); if(d.story===null){d.story=S.chapter%STORY.length; S.chapter++; save();}
+  const [title,...ps]=STORY[d.story];
+  app.innerHTML=`<section class="card">
+    <span class="chap">فصلِ ${fa(d.story+1)} از ${fa(STORY.length)}</span>
+    <h2>${esc(title)}</h2>
+    <div class="hero" style="grid-template-columns:80px 1fr">${BUN("happy")}<p class="muted">مامان بلند بخونه، ${esc(nm())} گوش بده.</p></div>
+    <div class="story">${ps.map(p=>`<p>${esc(p.replaceAll("{name}",nm()))}</p>`).join("")}</div>
+    <button class="btn" data-a="home">برگشت</button></section>`;
+  fx(160);
+}
+
+function setup(){
+  app.innerHTML=`<section class="card">
+    <div class="hero">${BUN("happy")}<div><h1>سفرِ پنبه</h1><p class="muted">قصه‌ای که با کارهای خوب جلو می‌ره</p></div></div>
+    <p>هر روز ${"بچه"} کارهاش رو انجام می‌ده، پنبهٔ خرگوشه هویج می‌گیره، و وقتی همهٔ کارهای روز تموم بشه، فصلِ تازهٔ قصه باز می‌شه. ستاره‌ها هم جمع می‌شن برای جایزه.</p>
+    <label for="sName">اسمِ بچه</label><input id="sName" autocomplete="off" placeholder="مثلاً: نازنین" value="${esc(S.name)}">
+    <label>رمزِ مامان (۴ رقم، برای تغییرِ کارها)</label>
+    <div class="pin">${[0,1,2,3].map(i=>`<input class="pd" inputmode="numeric" maxlength="1" aria-label="رقمِ ${i+1}">`).join("")}</div>
+    <p class="muted" id="err"></p>
+    <button class="btn" data-a="start">شروع کن</button>
+    <div class="note">همه‌چیز فقط روی همین گوشی ذخیره می‌شه و جایی فرستاده نمی‌شه.</div></section>`;
+}
+
+function gate(){
+  app.innerHTML=`<section class="card"><h2>پنلِ مامان 🔒</h2><p>رمزِ چهاررقمی رو بزن.</p>
+    <div class="pin">${[0,1,2,3].map(i=>`<input class="pd" inputmode="numeric" maxlength="1" aria-label="رقمِ ${i+1}">`).join("")}</div>
+    <p class="muted" id="err"></p>
+    <div class="row"><button class="btn ghost" data-a="home">برگشت</button><button class="btn mint" data-a="unlock">باز کن</button></div>
+    <button class="mini" data-a="forgot">رمز یادم رفته</button></section>`;
+  app.querySelector(".pd").focus();
+}
+
+function mom(){
+  const days=[...Array(7)].map((_,i)=>{const d=new Date();d.setDate(d.getDate()-6+i);const k=dkey(d),r=S.days[k];
+    return {w:d.toLocaleDateString("fa-IR",{weekday:"short"}),n:r?r.done.length:0}});
+  app.innerHTML=`
+  <div class="top"><h2>پنلِ مامان</h2><button class="iconbtn" data-a="home">برگشت</button></div>
+  <section class="card"><h3>این هفته</h3>
+    <div class="week">${days.map(x=>`<div>${x.w}<b>${fa(x.n)}</b></div>`).join("")}</div>
+    <p class="muted">عدد = کارهای انجام‌شده در آن روز از ${fa(S.tasks.length)} کار. فصل‌های باز شدهٔ قصه: ${fa(S.chapter)}</p></section>
+  <section class="card"><h3>کارهای روزانه</h3>
+    ${S.tasks.map(t=>`<div class="edit" data-id="${t.id}">
+      <input class="icon" data-f="icon" value="${esc(t.icon)}" aria-label="شکلک">
+      <input data-f="title" value="${esc(t.title)}" aria-label="اسمِ کار">
+      <select data-f="part" aria-label="وقتِ روز">${PARTS.map(([p])=>`<option ${p===t.part?"selected":""}>${p}</option>`).join("")}</select>
+      <input type="time" data-f="time" value="${t.time}" aria-label="ساعتِ یادآوری">
+      <div class="wide row"><button class="mini danger" data-a="del" data-id="${t.id}">حذفِ این کار</button></div>
+    </div>`).join("")}
+    <button class="btn ghost" data-a="add">+ کارِ تازه</button>
+    <p class="muted">ساعت خالی = بی‌یادآوری. وقتی ساعتِ کاری برسه و انجام نشده باشه، پنبه یادآوری می‌کنه.</p></section>
+  <section class="card"><h3>جایزه</h3>
+    <label for="rT">جایزه چیه؟</label><input id="rT" value="${esc(S.reward.title)}">
+    <label for="rG">چند ستاره؟</label><input id="rG" type="number" min="1" value="${S.reward.goal}">
+    <p class="muted">ستاره‌های الان: ${fa(S.stars-S.spent)}</p>
+    <button class="btn mint" data-a="give">جایزه رو دادم (ستاره‌ها کم بشه)</button></section>
+  <section class="card"><h3>یادآوری</h3>
+    <p class="muted">${"Notification" in window?(Notification.permission==="granted"?"اعلان روشنه. وقتی برنامه باز یا در پس‌زمینه‌ست، سرِ ساعت پیام میاد.":"با روشن کردنِ اعلان، سرِ ساعتِ هر کار پیام میاد (وقتی برنامه باز یا در پس‌زمینه باشه)."):"این مرورگر اعلان نداره؛ یادآوری داخلِ خودِ برنامه نشون داده می‌شه."}</p>
+    ${"Notification" in window&&Notification.permission!=="granted"?`<button class="btn" data-a="notif">روشن کردنِ اعلان</button>`:""}
+    <div class="note">برای اینکه مثلِ یه برنامهٔ واقعی روی گوشی باشه: در کروم منوی ⋮ ← «افزودن به صفحهٔ اصلی».</div></section>
+  <section class="card"><h3>تنظیمات</h3>
+    <label for="mName">اسمِ بچه</label><input id="mName" value="${esc(S.name)}">
+    <button class="mini" data-a="newpin">عوض کردنِ رمز</button>
+    <p class="muted" id="msg"></p></section>`;
+}
+
+function render(){({home,story,setup,gate,mom})[view](); window.scrollTo(0,0)}
+
+/* ---------- رویدادها ---------- */
+const pinVal=()=>[...app.querySelectorAll(".pd")].map(i=>i.value).join("");
+app.addEventListener("input",e=>{
+  const el=e.target;
+  if(el.classList.contains("pd")){el.value=el.value.replace(/[۰-۹]/g,d=>"۰۱۲۳۴۵۶۷۸۹".indexOf(d)).replace(/\D/g,"").slice(-1); if(el.value) el.nextElementSibling?.focus(); return;}
+  const row=el.closest(".edit");
+  if(row){const t=S.tasks.find(x=>x.id===row.dataset.id); t[el.dataset.f]=el.value; save(); return;}
+  if(el.id==="rT"){S.reward.title=el.value;save()} if(el.id==="rG"){S.reward.goal=Math.max(1,+el.value||1);save()}
+  if(el.id==="mName"){S.name=el.value.trim();save()}
+});
+app.addEventListener("keydown",e=>{if(e.target.classList.contains("pd")&&e.key==="Backspace"&&!e.target.value) e.target.previousElementSibling?.focus()});
+app.addEventListener("click",e=>{
+  const t=e.target.closest("[data-t]");
+  if(t){const d=day(),id=t.dataset.t,i=d.done.indexOf(id);
+    if(i>=0){d.done.splice(i,1);S.stars--} else {d.done.push(id);S.stars++;burst(t,22)}
+    save(); const wasAll=S.tasks.every(x=>d.done.includes(x.id)); render();
+    if(wasAll&&i<0){fx(200);document.querySelector(".bun")?.classList.add("wiggle")}
+    return;}
+  const a=e.target.closest("[data-a]")?.dataset.a; if(!a) return;
+  const err=document.getElementById("err");
+  if(a==="start"){const n=document.getElementById("sName").value.trim(),p=pinVal();
+    if(!n){err.textContent="اسمِ بچه رو بنویس.";return} if(p.length<4){err.textContent="رمز باید ۴ رقم باشه.";return}
+    S.name=n;S.pin=p;save();view="home";render();return}
+  if(a==="mom"){view=momOk?"mom":"gate";render();return}
+  if(a==="unlock"){if(pinVal()===S.pin){momOk=true;view="mom";render()}else{err.textContent="رمز درست نیست.";app.querySelectorAll(".pd").forEach(i=>i.value="");app.querySelector(".pd").focus()}return}
+  if(a==="forgot"){const x=6+Math.floor(Math.random()*4),y=7+Math.floor(Math.random()*3);
+    err.innerHTML=`برای ساختِ رمزِ تازه: <b>${fa(x)} × ${fa(y)} = ؟</b> را در خانه‌ها بزن (دو رقم، از چپ).`;
+    app.querySelector('[data-a="unlock"]').dataset.a="reset"; app.querySelector('[data-a="reset"]').dataset.ans=x*y;return}
+  if(a==="reset"){if(pinVal().slice(0,2)===String(e.target.dataset.ans)){S.pin="";save();view="setup";render()}else err.textContent="جواب درست نیست.";return}
+  if(a==="home"){momOk=view==="mom"?false:momOk;view="home";render();return}
+  if(a==="story"){view="story";render();return}
+  if(a==="add"){S.tasks.push({id:"t"+Date.now(),icon:"⭐",title:"کارِ تازه",part:"عصر",time:""});save();render();
+    const rows=app.querySelectorAll(".edit");rows[rows.length-1].querySelector('[data-f="title"]').select();return}
+  if(a==="del"){const id=e.target.dataset.id; if(e.target.dataset.sure){S.tasks=S.tasks.filter(x=>x.id!==id);save();render()}
+    else{e.target.dataset.sure=1;e.target.textContent="مطمئنی؟ دوباره بزن"};return}
+  if(a==="give"){const have=S.stars-S.spent; if(have<S.reward.goal){e.target.textContent=`هنوز ${fa(S.reward.goal-have)} ستاره کمه`;return}
+    S.spent+=S.reward.goal;save();render();fx(160);return}
+  if(a==="notif"){Notification.requestPermission().then(()=>render());return}
+  if(a==="newpin"){S.pin="";save();momOk=false;view="setup";render();return}
+});
+
+/* ---------- یادآوری ---------- */
+let sw=null;
+if("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js").then(r=>sw=r).catch(()=>{});
+function tick(){
+  if(!S.name) return; const d=day(); d.nudged=d.nudged||[];
+  const fresh=lateTasks().filter(t=>!d.nudged.includes(t.id));
+  if(fresh.length){
+    fresh.forEach(t=>d.nudged.push(t.id)); save();
+    const t=fresh[0], body=`وقتِ «${t.title}» شده ${t.icon} — تنبلی نکن، پنبه منتظرِ هویجه!`;
+    if("Notification" in window&&Notification.permission==="granted"){
+      try{sw?sw.showNotification("پنبه صدات می‌کنه 🐰",{body,icon:"icon.svg",tag:t.id,lang:"fa",dir:"rtl"}):new Notification("پنبه صدات می‌کنه 🐰",{body,icon:"icon.svg"})}catch(e){}
+    }
+    if(navigator.vibrate) navigator.vibrate([200,100,200]);
+    if(view==="home"){render();document.querySelector(".bun")?.classList.add("wiggle")}
+  }
+}
+setInterval(tick,30000);
+document.addEventListener("visibilitychange",()=>{if(!document.hidden&&view==="home"){render();tick()}});
+
+/* ---------- جشن ---------- */
+const cv=document.getElementById("fx"),cx=cv.getContext("2d"),still=matchMedia("(prefers-reduced-motion: reduce)").matches;
+function boom(x,y,n,sp){
+  if(still) return; cv.width=innerWidth;cv.height=innerHeight;
+  const cols=["#FF8FB1","#FFC93C","#5CCFB0","#FF8A3D","#5AB8F5"];
+  const ps=Array.from({length:n},()=>({x,y,vx:(Math.random()-.5)*sp,vy:-Math.random()*sp-2,r:3+Math.random()*4,c:cols[Math.random()*5|0],a:1}));
+  (function f(){cx.clearRect(0,0,cv.width,cv.height);let live=0;
+    ps.forEach(p=>{p.x+=p.vx;p.y+=p.vy;p.vy+=.25;p.a-=.013;if(p.a>0){live++;cx.globalAlpha=p.a;cx.fillStyle=p.c;cx.beginPath();cx.arc(p.x,p.y,p.r,0,7);cx.fill()}});
+    cx.globalAlpha=1;live?requestAnimationFrame(f):cx.clearRect(0,0,cv.width,cv.height)})();
+}
+function burst(el,n){const r=el.getBoundingClientRect();boom(r.left+r.width/2,r.top+r.height/2,n,6)}
+function fx(n){boom(innerWidth/2,innerHeight/3,n,14)}
+
+render(); setTimeout(tick,1500);
+</script>
+</body>
+</html>
